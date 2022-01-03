@@ -1,11 +1,9 @@
 import React from 'react'
-import {useState} from 'react'
-import { Navbar, Container, Nav, Button, Row} from 'react-bootstrap'
+import {useState,useEffect} from 'react'
+import { Navbar, Container, Nav, Button} from 'react-bootstrap'
 import NavBox from './SharedComponents/components/navbar'
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import "./SharedComponents/Styles/Home.css"
 
@@ -13,22 +11,34 @@ import "./SharedComponents/Styles/Home.css"
 export default function Home() {
     
     const [bColor, setbColor] = useState(null)
-    const generateColors = () => {
+    
+    function colorGe(){
         var letters = '0123456789ABCDEF';
         var color = '#';
-        for (var i = 0; i < 6; i++) {
-            color += letters[Math.floor(Math.random() * 10)];
+         for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 11)];
         }
         return color
+    } 
+    const generateColors = () => {
+       
+        var color_18_list = []
+        for (var j = 0; j < 18; j++)    {
+            color_18_list.push(colorGe())
+        }
+        return color_18_list
     }
+
+    const [themingList, setthemingList] = useState([])
+    useEffect(() => {
+        var temp_color_list = generateColors()
+        setthemingList(temp_color_list)
+    }, [])
+
     function numberRange (start, end) {
         return new Array(end - start).fill().map((d, i) => i + start);
       }
 
-    const [CopyStatus, setCopyStatus] = useState(false)
-    const [colorHex, setcolorHex] = useState('')
-
-    
 
     return (
         <div
@@ -49,35 +59,25 @@ export default function Home() {
             >For Theming</h3>
             <Container maxWidth="sm">
             <Grid container spacing={2}>
-            {numberRange(0, 18).map((p) => {
+            {themingList && themingList.map((p) => {
                 return(
-                    <>
-                    <CopyToClipboard text={colorHex}
-                        onCopy={() => setCopyStatus(true)}>
-                        <div
-                        style={{
-                            flexDirection: 'column'
-                        }}
-                        >
-                        <Card sx={{ width:180, height: 250, borderRadius:5, backgroundColor: generateColors(), margin:1.50 }} onClick={() => {navigator.clipboard.writeText("#"+this.state.textToCopy)}}>
-                      
-                        </Card>
-                      
-                        <Typography style={{
-                            textAlign: 'center',
-                            marginTop: 8,
-                            marginBottom: 12
-                            }} 
-                        variant="h6" 
-                        component="h2"
-                       
-                        >
-                        Tap to Copy
-                        </Typography>
-                        </div>
-                    </CopyToClipboard>
-                   {/* {CopyStatus ? <span style={{color: 'red'}}>Copied.</span> : null} */}
-                   </>
+                    <div
+                    style={{
+                        flexDirection: 'column'
+                    }}
+                    >
+                    <Card sx={{ width:180, height: 250, borderRadius:5, backgroundColor: p, margin:1.50 }} onClick={() => {navigator.clipboard.writeText("#"+this.state.textToCopy)}}>
+
+                    </Card>
+                    <p
+                    style={{
+                        textAlign: 'center',
+                        fontFamily:'Aleo'
+                    }}
+                    >
+                        {p}
+                    </p>
+                    </div>
                 )
             })
 
