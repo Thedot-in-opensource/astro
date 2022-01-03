@@ -36,10 +36,11 @@ export default function Home() {
     const [colorCopyStatus, setcolorCopyStatus] = useState(false)
     const [vertical, setvertical] = useState('bottom')
     const [horizontal, sethorizontal] = useState('right')
+    const [generateColorsStatus, setgenerateColorsStatus] = useState(false)
     useEffect(() => {
         var temp_color_list = generateColors()
         setthemingList(temp_color_list)
-    }, [])
+    }, [generateColorsStatus])
 
     function numberRange (start, end) {
         return new Array(end - start).fill().map((d, i) => i + start);
@@ -83,7 +84,7 @@ export default function Home() {
                         flexDirection: 'column'
                     }}
                     >
-                    <Card sx={{ width:180, height: 250, borderRadius:5, backgroundColor: p, margin:1.50 }} onClick={() => {navigator.clipboard.writeText(p); setcolorCopyStatusHandler({
+                    <Card className="style_prevu_kit" sx={{ width:180, height: 250, borderRadius:5, backgroundColor: p, margin:1.50 }} onClick={() => {navigator.clipboard.writeText(p); setcolorCopyStatusHandler({
           vertical: 'bottom',
           horizontal: 'right',
         })}}>
@@ -117,7 +118,7 @@ export default function Home() {
 
 
             <Button
-            onClick={() => generateColors()}
+            onClick={() => setgenerateColorsStatus(!generateColorsStatus)}
             >
                 Change
             </Button>
