@@ -107,7 +107,7 @@ export default function Home() {
         style={bColor ? 
             {backgroundColor: bColor }
             
-        : {backgroundColor: '#fff' }}
+        : {backgroundColor: 'RGB(25, 25, 25)' }}
         >
             <NavBox/>
             <div
@@ -126,17 +126,27 @@ export default function Home() {
                 textAlign: 'center',
                 marginTop: 25,
                 marginBottom: 25,
-                fontFamily:'Aleo'
+                fontFamily:'Aleo',
+                color:'grey'
             }}
             >For Theming</h3>
-                <Button
-                style={{
-                    textAlign: 'center'
-                }}
+            <div
+            style={{
+                textAlign: 'center',
+                marginTop:15,
+                marginBottom:60
+            }}
+            >
+            <Button
+            style={{
+                backgroundColor:'#544612'
+            }}
             onClick={() => setgenerateColorsStatus(!generateColorsStatus)}
             >
                 Shuffle
             </Button>
+            </div>
+               
             <Container maxWidth="sm">
             <Grid container spacing={2}>
             {themingList && themingList.map((p) => {
@@ -155,7 +165,8 @@ export default function Home() {
                     <p
                     style={{
                         textAlign: 'center',
-                        fontFamily:'Aleo'
+                        fontFamily:'Aleo',
+                        color:'grey'
                     }}
                     >
                         {p}
