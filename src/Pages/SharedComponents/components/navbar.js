@@ -11,9 +11,9 @@ export default function NavBox() {
       <Nav.Link href="#features">Colors</Nav.Link>
       <Nav.Link href="#pricing">Designs</Nav.Link>
       <NavDropdown title="Arts" id="collasible-nav-dropdown">
-        <NavDropdown.Item href="#action/3.1">NFTs</NavDropdown.Item>
+        {/* <NavDropdown.Item href="#action/3.1">NFTs</NavDropdown.Item>
         <NavDropdown.Item href="#action/3.2">Auto-Generative Arts</NavDropdown.Item>
-        <NavDropdown.Item href="#action/3.3">Assets</NavDropdown.Item>
+        <NavDropdown.Item href="#action/3.3">Assets</NavDropdown.Item> */}
         {/* <NavDropdown.Divider /> */}
         {/* <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
       </NavDropdown>
