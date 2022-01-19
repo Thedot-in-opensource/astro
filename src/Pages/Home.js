@@ -103,6 +103,15 @@ export default function Home() {
         setcolorCopyStatus(false)   
     }
 
+    useEffect(() => {
+      if(colorCopyStatus === true){
+            setTimeout(() => {
+                setcolorCopyStatus(false)   
+            }, 500);
+      }
+    }, [colorCopyStatus]);
+    
+
     const setcolorCopyStatusHandler = (newState) => {
         setvertical(newState.vertical)
         sethorizontal(newState.horizontal)
@@ -279,7 +288,7 @@ export default function Home() {
             <Grid container spacing={2}>
 
             
-            {bshadesColor && bshadesColor.map(col => {
+            {shadesColor && shadesColor.map(col => {
                 return(
                     <div
                     style={{
@@ -372,7 +381,7 @@ export default function Home() {
             severity="success" 
             sx={{ width: '100%' }}
             anchorOrigin={{ vertical, horizontal }}>
-            This is a success message!
+            The color is copied
             </Alert>
       </Snackbar>
             </Container>
