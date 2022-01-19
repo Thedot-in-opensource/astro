@@ -19,7 +19,7 @@ export default function Home() {
     const [bColor, setbColor] = useState(null)
     const [shadesColor,setshadesColor] = useState([]);
     const [bshadesColor,setbshadesColor] = useState([]);
-
+    const [yshadesColor, setyshadesColor] = useState([]);
 
     function colorGe(){
         var letters = '0123456789ABCDEF';
@@ -72,11 +72,13 @@ export default function Home() {
                  //Example: ten colors between red and blue
                  var colors = build_colors([0, 0, 255], [0, 0, 50], 12);  
                  var b_colors = build_colors([255, 0, 0], [50, 0, 0], 12);  
+                 var y_colors = build_colors([255, 255, 0], [50, 50, 0], 12);  
           
                  //Render
                 
                  setshadesColor(colors)
                  setbshadesColor(b_colors)
+                 setyshadesColor(y_colors)
         }, []);
         
    
@@ -227,12 +229,12 @@ export default function Home() {
                 fontFamily:'Aleo',
                 color:'grey'
             }}
-            >Be Blue</h3>  
+            >Be Yellow</h3>  
              <Container maxWidth="sm">
             <Grid container spacing={2}>
 
             
-            {shadesColor && shadesColor.map(col => {
+            {yshadesColor && yshadesColor.map(col => {
                 return(
                     <div
                     style={{
@@ -262,6 +264,51 @@ export default function Home() {
             </Grid>
             </Container>
             </div>
+            <div>
+            <h3
+            style={{
+                fontSize: 45,
+                textAlign: 'center',
+                marginTop: 25,
+                marginBottom: 25,
+                fontFamily:'Aleo',
+                color:'grey'
+            }}
+            >Be Blue</h3>  
+             <Container maxWidth="sm">
+            <Grid container spacing={2}>
+
+            
+            {bshadesColor && bshadesColor.map(col => {
+                return(
+                    <div
+                    style={{
+                        flexDirection: 'column'
+                    }}
+                    >
+                    <Card className="style_prevu_kit" sx={{ width:180, height: 250, borderRadius:5, backgroundColor: col, margin:1.50 }} onClick={() => {navigator.clipboard.writeText(col); setcolorCopyStatusHandler({
+          vertical: 'bottom',
+          horizontal: 'right',
+        })}}>
+
+                    </Card>
+                    <p
+                    style={{
+                        textAlign: 'center',
+                        fontFamily:'Aleo',
+                        color:'grey'
+                    }}
+                    >
+                        {col}
+                    </p>
+                    </div>
+                )
+            })
+
+            }
+            </Grid>
+            </Container>
+            </div>y
             <h3
             style={{
                 fontSize: 45,
