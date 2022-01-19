@@ -9,13 +9,18 @@ import MuiAlert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {useSpring, animated, config} from 'react-spring'
+import { Spline } from 'react-spline'
+import SCENE_OBJECT from './scene.json'
 import "./SharedComponents/Styles/Home.css"
 
 
 export default function Home() {
     
     const [bColor, setbColor] = useState(null)
-    
+    const [shadesColor,setshadesColor] = useState([]);
+    const [bshadesColor,setbshadesColor] = useState([]);
+
+
     function colorGe(){
         var letters = '0123456789ABCDEF';
         var color = '#';
@@ -32,6 +37,51 @@ export default function Home() {
         }
         return color_18_list
     }
+
+ 
+        var build_colors = function(start, end, n) {
+    
+            //Distance between each color
+            var steps = [
+              (end[0] - start[0]) / n,  
+              (end[1] - start[1]) / n,  
+              (end[2] - start[2]) / n  
+            ];
+            
+            //Build array of colors
+            var colors = [start];
+            for(var ii = 0; ii < n - 1; ++ii) {
+              colors.push([
+                Math.floor(colors[ii][0] + steps[0]),
+                Math.floor(colors[ii][1] + steps[1]),
+                Math.floor(colors[ii][2] + steps[2])
+              ]);
+            }
+            colors.push(end); 
+            let shades_array = [];
+          
+            for(var ii = 0; ii < 12; ++ii) {
+                console.log("background: rgb(" + colors[ii].join(",") + ")");
+                shades_array.push("rgb(" + colors[ii].join(",") + ")");
+            }
+            return shades_array;
+          };
+          
+        
+        useEffect(() => {
+                 //Example: ten colors between red and blue
+                 var colors = build_colors([0, 0, 255], [0, 0, 50], 12);  
+                 var b_colors = build_colors([255, 0, 0], [50, 0, 0], 12);  
+          
+                 //Render
+                
+                 setshadesColor(colors)
+                 setbshadesColor(b_colors)
+        }, []);
+        
+   
+
+
 
     const [themingList, setthemingList] = useState([])
     const [colorCopyStatus, setcolorCopyStatus] = useState(false)
@@ -110,15 +160,107 @@ export default function Home() {
         : {backgroundColor: 'RGB(25, 25, 25)' }}
         >
             <NavBox/>
-            <div
+            {/* <div
             style={{
                 height: 500,
                 width: '100%',
                 backgroundColor: 'black'
             }}
             >
-            {/* <Scrolling/> */}
+            <Scrolling/>
             <iframe src='https://my.spline.design/untitled-d9151713e8248c16b12378b777280610/' frameborder='0' width='100%' height='100%'></iframe>
+            <Spline scene={SCENE_OBJECT} />
+            
+            </div> */}
+            <div>
+            <h3
+            style={{
+                fontSize: 45,
+                textAlign: 'center',
+                marginTop: 25,
+                marginBottom: 25,
+                fontFamily:'Aleo',
+                color:'grey'
+            }}
+            >Be Red</h3>  
+             <Container maxWidth="sm">
+            <Grid container spacing={2}>
+
+            
+            {bshadesColor && bshadesColor.map(col => {
+                return(
+                    <div
+                    style={{
+                        flexDirection: 'column'
+                    }}
+                    >
+                    <Card className="style_prevu_kit" sx={{ width:180, height: 250, borderRadius:5, backgroundColor: col, margin:1.50 }} onClick={() => {navigator.clipboard.writeText(col); setcolorCopyStatusHandler({
+          vertical: 'bottom',
+          horizontal: 'right',
+        })}}>
+
+                    </Card>
+                    <p
+                    style={{
+                        textAlign: 'center',
+                        fontFamily:'Aleo',
+                        color:'grey'
+                    }}
+                    >
+                        {col}
+                    </p>
+                    </div>
+                )
+            })
+
+            }
+            </Grid>
+            </Container>
+            </div>
+            <div>
+            <h3
+            style={{
+                fontSize: 45,
+                textAlign: 'center',
+                marginTop: 25,
+                marginBottom: 25,
+                fontFamily:'Aleo',
+                color:'grey'
+            }}
+            >Be Blue</h3>  
+             <Container maxWidth="sm">
+            <Grid container spacing={2}>
+
+            
+            {shadesColor && shadesColor.map(col => {
+                return(
+                    <div
+                    style={{
+                        flexDirection: 'column'
+                    }}
+                    >
+                    <Card className="style_prevu_kit" sx={{ width:180, height: 250, borderRadius:5, backgroundColor: col, margin:1.50 }} onClick={() => {navigator.clipboard.writeText(col); setcolorCopyStatusHandler({
+          vertical: 'bottom',
+          horizontal: 'right',
+        })}}>
+
+                    </Card>
+                    <p
+                    style={{
+                        textAlign: 'center',
+                        fontFamily:'Aleo',
+                        color:'grey'
+                    }}
+                    >
+                        {col}
+                    </p>
+                    </div>
+                )
+            })
+
+            }
+            </Grid>
+            </Container>
             </div>
             <h3
             style={{
